@@ -1,61 +1,37 @@
-from pysr import PySRRegressor
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
-x0 = []
-sigma1 = []
-sigma2 = []
-sigma3 = []
-#G0 = []
-WA = []
-delta = [] #(dir - esq)/2
+# Gerar dados
+x = np.linspace(-5, 5, 100)
+y = np.linspace(-5, 5, 100)
+x, y = np.meshgrid(x, y)
+z = np.sin(np.sqrt(x**2 + y**2))
 
-# Coleta os dados do arquivo ===============================================
-with open('dados.txt', 'r') as arquivo:
-    linhas = arquivo.readlines()
+# Criar figura
+fig = plt.figure()
 
-for linha in linhas:
-    # Serve para tirar os '\n' e espaços
-    valores = linha.strip().split(',')
-    
-    x0.append(float(valores[0]))
-    sigma1.append(float(valores[1]))
-    sigma2.append(float(valores[2]))
-    sigma3.append(float(valores[3]))
-    #G0.append(float(valores[4]))
-    WA.append(float(valores[4]))
-    delta.append(float(valores[5]))
+# Adicionar subplot 3D
+ax = fig.add_subplot(111, projection='3d')
 
-dados = [x0, sigma1, sigma2, sigma3, WA]#, G0]
-dados_transpostos = list(map(list, zip(*dados)))
+# Plotar superfície
+surf = ax.plot_surface(x, y, z, cmap='viridis', edgecolor='none')
 
-# Configurações ====================================================================== 
-model = PySRRegressor(
-    model_selection="accuracy",
-    niterations=1000,  # < Increase me for better results
-    binary_operators=["+", "*", "-", "/"],
-    progress=False,
-    populations=50,
-    population_size=100,
-    maxsize=16,
-    delete_tempfiles=True,
-    # ^ Mostra apenas as equações finais, sem mostrar o progresso
-    unary_operators=[
-        "sin",
-        "cos",
-        "exp",
-        "log",
-        "inv(x) = 1/x",
-        # ^ Custom operator (julia syntax)
-    ],
-    extra_sympy_mappings={"inv": lambda x: 1 / x},
-    # ^ Define operator for SymPy as well
-    warm_start=True,
-    turbo=True,
-    batching=True,
-    # ^ Faz com que o pysr rode a partir de um progresso já feito (a partir de um Hall_of_fame da vida)
-    loss="loss(prediction, target) = (prediction - target)^2",
-    # ^ Custom loss function (julia syntax)
-)
+# Adicionar barra de cores
+fig.colorbar(surf, shrink=0.5, aspect=5)
 
-model.fit(dados_transpostos, delta)
+# Adicionar título e rótulos dos eixos
+ax.set_title('Superfície 3D')
+ax.set_xlabel('Eixo X')
+ax.set_ylabel('Eixo Y')
+ax.set_zlabel('Eixo Z')
 
-print(model)
+# Adicionar marcadores
+ax.scatter(0, 0, 0, color='red', marker='o', label='Origem')
+ax.scatter(x[::10], y[::10], z[::10], color='blue', marker='x', label='Pontos selecionados')
+
+# Adicionar legenda
+ax.legend()
+
+# Mostrar gráfico
+plt.show()

@@ -1,15 +1,14 @@
-import os
 from itertools import product
 from funcoes import *
 
 def main():
 
-    x0Vector = [9, 10, 11]
-    sigma1Vector = [0.8, 1.2, 1.6, 1.8]
-    sigma2Vector = [2, 4, 6]
+    x0Vector = [9, 11]
+    sigma1Vector = [0.5, 2]
+    sigma2Vector = [2, 4]  # Números pares não nulos
     sigma3Vector = [2, 2.5, 3]
-    G0Vector = [1, 2, 5]
-    WAVector = [0.5, 1, 1.5]
+    G0Vector = [1]
+    WAVector = [0.5, 2]
     dados = []
     deltaVector = [] #(dir - esq)/2
 
@@ -29,7 +28,6 @@ def main():
         print("+--------------------------------------------------------+\n")
 
         caso = int(input("Selecione a opção (1, 2, 3, 4): "))
-
 
         # Switch case para o usuário escolher o que quer fazer =================================================
 
@@ -81,22 +79,3 @@ def main():
             pausa_tela()
 
 main()
-
-# Coleta os dados do arquivo ===============================================
-#with open('dados.txt', 'r') as arquivo:
-#    linhas = arquivo.readlines()
-#
-#for linha in linhas:
-    # Serve para tirar os '\n' e espaços
-#    valores = linha.strip().split(',')
-#    
-#    x0.append(float(valores[0]))
-#    sigma1.append(float(valores[1]))
-#    sigma2.append(float(valores[2]))
-#    sigma3.append(float(valores[3]))
-#    G0.append(float(valores[4]))
-#    WA.append(float(valores[4]))
-#    delta.append(float(valores[5]))
-
-#dados = [x0, sigma1, sigma2, sigma3, WA, G0]
-#dados_transpostos = list(map(list, zip(*dados)))

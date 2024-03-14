@@ -154,6 +154,7 @@ def plota_grafico(x0Vector, sigma1Vector, sigma2Vector, sigma3Vector, G0Vector, 
                 equacao = PySRRegressor.sympy(model, None)
                 break
             
+            #Correção dos índices
             numero_equacao = int(string_numero_equacao)
             numero_equacao -= 1
             

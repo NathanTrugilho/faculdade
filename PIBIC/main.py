@@ -3,12 +3,12 @@ from funcoes import *
 
 def main():
 
-    x0Vector = [9, 11]
-    sigma1Vector = [0.5, 2]
-    sigma2Vector = [2, 4]  # Números pares não nulos
-    sigma3Vector = [2, 2.5, 3]
-    G0Vector = [1]
-    WAVector = [0.5, 2]
+    x0Vector = [8, 9, 10, 11, 12]
+    sigma1Vector = [0.5, 1, 1.5, 2, 3]
+    sigma2Vector = [2, 4, 6, 8]  # Números pares não nulos
+    sigma3Vector = [1.5, 2, 2.5, 3, 4]
+    G0Vector = [0.5, 1, 2, 3]
+    WAVector = [0.25, 0.5, 1, 2, 4]
     dados = []
     deltaVector = [] #(dir - esq)/2
 
@@ -58,7 +58,7 @@ def main():
                 # Lê o deltaVector do arquivo de texto ==========================================
                 with open('deltaVector.txt', 'r') as arquivo:
                     linha = arquivo.readline().strip()  # Lê a linha e remove espaços em branco
-                    deltaVector = list(map(float, linha.split(',')))
+                    deltaVector = list(map(float, linha.split(','))) # Remove as vírgulas entre os valores de Delta
                 print("-Leitura concluída")
 
             print("-Iniciando Pysr...")
